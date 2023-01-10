@@ -3,7 +3,7 @@ namespace :rabbitmq do
   task :setup do
     require "bunny"
 
-    connection = Bunny.new.tap(&:start)
+    connection = Bunny.new(ENV['CLOUDAMQP_URL']).tap(&:start)
     channel = connection.create_channel
 
     queue_restaurants = channel.queue("dashboard.restaurants", durable: true)
